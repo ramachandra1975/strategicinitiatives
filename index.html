@@ -1,0 +1,1826 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Spandana Shodha — The Living Inquiry</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Cinzel:wght@400;600;700&family=EB+Garamond:ital,wght@0,400;1,400&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --gold-pale: #F5E6C0;
+  --deep: #0D0A06;
+  --ink: #120E05;
+  --parchment: #F9F2E3;
+  --cream: #FAF6ED;
+  --rust: #7A3B1E;
+  --dim: rgba(249,242,227,0.75);
+}
+
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  background: var(--deep);
+  color: var(--parchment);
+  overflow-x: hidden;
+}
+
+/* ═══════════════════════════════
+   PRIMARY NAVIGATION
+═══════════════════════════════ */
+nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 999;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 1rem 3rem;
+  background: rgba(13,10,6,0.95);
+  border-bottom: 1px solid rgba(201,168,76,0.18);
+  backdrop-filter: blur(14px);
+}
+.nav-logo { display: flex; align-items: center; gap: 0.9rem; text-decoration: none; }
+.nav-logo img {
+  height: 50px; width: 50px; border-radius: 50%;
+  border: 1.5px solid var(--gold); object-fit: cover;
+}
+.nav-brand { display: flex; flex-direction: column; }
+.nav-brand .brand-name {
+  font-family: 'Cinzel', serif; font-size: 1rem;
+  letter-spacing: 0.22em; color: var(--gold); line-height: 1;
+}
+.nav-brand .brand-sub {
+  font-size: 0.68rem; letter-spacing: 0.15em;
+  color: var(--gold-pale); font-style: italic; opacity: 0.72;
+}
+
+/* Nav right — two buttons */
+.nav-right {
+  display: flex; align-items: center; gap: 0.8rem;
+}
+
+/* shared dropdown wrapper */
+.nav-menu-wrap { position: relative; }
+
+.menu-btn {
+  background: none; border: 1.5px solid var(--gold);
+  color: var(--gold); font-family: 'Cinzel', serif;
+  font-size: 0.68rem; letter-spacing: 0.2em;
+  padding: 0.48rem 1.1rem; cursor: pointer;
+  display: flex; align-items: center; gap: 0.5rem; transition: all 0.3s;
+  white-space: nowrap;
+}
+.menu-btn:hover { background: rgba(201,168,76,0.1); }
+.chevron { transition: transform 0.3s; font-size: 0.58rem; display: inline-block; }
+.menu-btn.open .chevron { transform: rotate(180deg); }
+
+/* subdomain button — distinct colour */
+.menu-btn.sub-btn {
+  border-color: rgba(201,168,76,0.5);
+  color: var(--gold-light);
+}
+
+.dropdown {
+  position: absolute; top: calc(100% + 0.6rem); right: 0;
+  background: rgba(10,8,4,0.98);
+  border: 1px solid rgba(201,168,76,0.28);
+  backdrop-filter: blur(16px);
+  opacity: 0; pointer-events: none;
+  transform: translateY(-8px); transition: all 0.3s ease; z-index: 1000;
+  min-width: 300px;
+}
+.dropdown.open { opacity: 1; pointer-events: all; transform: translateY(0); }
+.dd-section { padding: 0.5rem 0; border-bottom: 1px solid rgba(201,168,76,0.1); }
+.dd-section:last-child { border-bottom: none; }
+.dd-label {
+  font-family: 'Cinzel', serif; font-size: 0.56rem;
+  letter-spacing: 0.3em; color: var(--gold); opacity: 0.6;
+  padding: 0.4rem 1.2rem 0.1rem;
+}
+.dropdown a {
+  display: block; padding: 0.5rem 1.2rem;
+  color: var(--parchment); text-decoration: none;
+  font-size: 0.88rem; letter-spacing: 0.03em;
+  transition: all 0.2s; border-left: 2px solid transparent;
+}
+.dropdown a:hover {
+  color: var(--gold-light); border-left-color: var(--gold);
+  background: rgba(201,168,76,0.06); padding-left: 1.6rem;
+}
+
+/* subdomain dropdown — wider */
+#dropdownSub { min-width: 340px; }
+.sub-link {
+  display: flex !important; flex-direction: column !important;
+  padding: 0.75rem 1.2rem !important;
+}
+.sub-link .sub-name {
+  font-family: 'Cinzel', serif; font-size: 0.82rem;
+  color: var(--gold-light); letter-spacing: 0.06em;
+}
+.sub-link .sub-url {
+  font-size: 0.72rem; color: rgba(201,168,76,0.45);
+  font-style: italic; margin-top: 0.15rem;
+}
+.sub-link:hover .sub-name { color: var(--gold); }
+
+/* ═══════════════════════════════
+   HERO
+═══════════════════════════════ */
+.hero {
+  position: relative; min-height: 100vh;
+  display: flex; flex-direction: column; justify-content: center; align-items: center;
+  text-align: center;
+  background: url('https://github.com/ramachandra1975/Spandana-Shodha-/raw/main/background.jpg') center center / cover no-repeat;
+  padding: 8rem 2rem 2rem;
+}
+.hero::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(
+    to bottom,
+    rgba(13,10,6,0.52) 0%,
+    rgba(13,10,6,0.22) 32%,
+    rgba(13,10,6,0.72) 78%,
+    rgba(13,10,6,1) 100%
+  );
+}
+.hero-inner { position: relative; z-index: 1; max-width: 820px; width: 100%; }
+.hero-kicker {
+  font-family: 'Cinzel', serif; font-size: 0.66rem;
+  letter-spacing: 0.44em; color: var(--gold); opacity: 0.85;
+  margin-bottom: 1.5rem; animation: fadeUp 1s ease both;
+}
+.hero-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(2.8rem, 7vw, 5.5rem);
+  font-weight: 700; line-height: 1.05;
+  letter-spacing: 0.05em; color: var(--parchment);
+  margin-bottom: 0.4rem; animation: fadeUp 1s 0.15s ease both;
+}
+.hero-title span { color: var(--gold); }
+.hero-tagline {
+  font-size: clamp(1rem, 2.2vw, 1.4rem);
+  font-style: italic; color: var(--gold-pale);
+  letter-spacing: 0.07em; margin-bottom: 1.8rem;
+  animation: fadeUp 1s 0.28s ease both;
+}
+.ornament {
+  display: flex; align-items: center; gap: 1rem;
+  justify-content: center; margin-bottom: 1.8rem;
+  animation: fadeUp 1s 0.38s ease both;
+}
+.ornament span { width: 55px; height: 1px; background: var(--gold); opacity: 0.4; }
+.ornament i { color: var(--gold); font-style: normal; font-size: 1rem; opacity: 0.6; }
+.hero-desc {
+  font-size: 1.06rem; line-height: 1.9;
+  color: rgba(249,242,227,0.8); max-width: 650px; margin: 0 auto 2.5rem;
+  animation: fadeUp 1s 0.48s ease both;
+}
+.hero-pills {
+  display: flex; flex-wrap: wrap; gap: 0.55rem;
+  justify-content: center; margin-bottom: 3.5rem;
+  animation: fadeUp 1s 0.6s ease both;
+}
+.pill {
+  border: 1px solid rgba(201,168,76,0.32);
+  padding: 0.42rem 1rem;
+  font-family: 'Cinzel', serif; font-size: 0.62rem;
+  letter-spacing: 0.16em; color: var(--gold-pale);
+  text-decoration: none; transition: all 0.26s;
+  background: rgba(13,10,6,0.5);
+}
+.pill:hover { background: rgba(201,168,76,0.12); border-color: var(--gold); color: var(--gold); }
+
+/* ── SECOND MENU — SUBDOMAIN CARDS ── */
+.subdomain-bar {
+  position: relative; z-index: 1;
+  width: 100%; max-width: 920px;
+  animation: fadeUp 1s 0.75s ease both;
+}
+.subdomain-bar-label {
+  font-family: 'Cinzel', serif; font-size: 0.58rem;
+  letter-spacing: 0.38em; color: var(--gold); opacity: 0.6;
+  margin-bottom: 0.8rem; text-align: center;
+}
+.subdomain-cards {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.7rem;
+}
+.sd-card {
+  border: 1px solid rgba(201,168,76,0.22);
+  padding: 1.1rem 1rem;
+  text-decoration: none;
+  background: rgba(13,10,6,0.6);
+  backdrop-filter: blur(8px);
+  transition: all 0.32s;
+  display: flex; flex-direction: column; gap: 0.3rem;
+  text-align: left;
+}
+.sd-card:hover {
+  border-color: var(--gold);
+  background: rgba(201,168,76,0.08);
+  transform: translateY(-3px);
+}
+.sd-num {
+  font-family: 'Cinzel', serif; font-size: 0.56rem;
+  letter-spacing: 0.28em; color: var(--gold); opacity: 0.55;
+}
+.sd-name {
+  font-family: 'Cinzel', serif; font-size: 0.8rem;
+  color: var(--gold-light); letter-spacing: 0.06em; line-height: 1.3;
+}
+.sd-domain {
+  font-size: 0.68rem; color: rgba(201,168,76,0.45);
+  font-style: italic; margin-top: 0.1rem;
+}
+.sd-arrow {
+  font-size: 0.7rem; color: var(--gold); opacity: 0;
+  transition: opacity 0.28s; margin-top: 0.4rem;
+}
+.sd-card:hover .sd-arrow { opacity: 1; }
+
+/* ═══════════════════════════════
+   TOPIC SECTIONS
+═══════════════════════════════ */
+.topic-section {
+  position: relative; padding: 7rem 4rem;
+}
+.topic-section.dark { background: var(--ink); }
+.topic-section.mid  { background: #0F0B05; }
+.topic-section.alt  { background: #111008; }
+.topic-section::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.18;
+}
+.topic-inner { max-width: 1080px; margin: 0 auto; }
+.topic-header {
+  display: grid; grid-template-columns: 1fr 2fr; gap: 3.5rem;
+  align-items: start; margin-bottom: 4rem;
+}
+.topic-number {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(4rem, 9vw, 8rem);
+  font-weight: 700; line-height: 1;
+  color: var(--gold); opacity: 0.07;
+  letter-spacing: -0.02em; user-select: none;
+}
+.topic-tag {
+  font-family: 'Cinzel', serif; font-size: 0.58rem;
+  letter-spacing: 0.38em; color: var(--gold); opacity: 0.62; margin-bottom: 0.6rem;
+}
+.topic-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.5rem, 3vw, 2.3rem);
+  color: var(--parchment); line-height: 1.2;
+  letter-spacing: 0.04em; margin-bottom: 0.6rem;
+}
+.topic-title span { color: var(--gold); }
+.topic-subtitle {
+  font-style: italic; color: var(--gold-pale);
+  font-size: 0.98rem; opacity: 0.7; line-height: 1.65; margin-bottom: 1.3rem;
+}
+.topic-divider { width: 48px; height: 1px; background: var(--gold); opacity: 0.32; }
+.topic-body { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+.topic-col p {
+  font-size: 1.03rem; line-height: 2.05; color: var(--dim); margin-bottom: 1.35rem;
+}
+.topic-col p:first-of-type::first-letter {
+  font-size: 2.8rem; font-family: 'Cinzel', serif; color: var(--gold);
+  float: left; line-height: 0.75; margin-right: 0.1em; margin-top: 0.18em;
+}
+.topic-col h3 {
+  font-family: 'Cinzel', serif; font-size: 0.92rem;
+  color: var(--gold-light); letter-spacing: 0.1em; margin: 2rem 0 0.8rem;
+}
+.topic-col blockquote {
+  border-left: 2px solid var(--gold); padding: 0.75rem 1.2rem;
+  margin: 1.5rem 0; background: rgba(201,168,76,0.05);
+}
+.topic-col blockquote p {
+  font-style: italic; color: var(--gold-pale); font-size: 1.06rem; margin: 0;
+}
+.topic-col blockquote p::first-letter {
+  font-size: inherit; color: inherit; float: none; line-height: inherit;
+}
+.topic-bg-panel {
+  position: relative; margin: 2.5rem 0;
+  background: url('https://github.com/ramachandra1975/Spandana-Shodha-/raw/main/background1.png') center center / cover no-repeat;
+  min-height: 260px; display: flex; align-items: center; padding: 3rem;
+}
+.topic-bg-panel::before {
+  content: ''; position: absolute; inset: 0; background: rgba(13,10,6,0.83);
+}
+.panel-quote {
+  position: relative; z-index: 1;
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.95rem, 2vw, 1.5rem);
+  color: var(--gold-pale); line-height: 1.6;
+  letter-spacing: 0.04em; max-width: 700px; margin: 0 auto; text-align: center;
+}
+.panel-quote cite {
+  display: block; margin-top: 1rem;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 0.85rem; font-style: italic; color: var(--gold); opacity: 0.65; letter-spacing: 0.1em;
+}
+.subdomain-cta {
+  display: flex; align-items: center; justify-content: space-between;
+  border: 1px solid rgba(201,168,76,0.2); padding: 1.7rem 2rem;
+  background: rgba(201,168,76,0.035); margin-top: 2.5rem;
+}
+.cta-label {
+  font-family: 'Cinzel', serif; font-size: 0.58rem;
+  letter-spacing: 0.32em; color: var(--gold); opacity: 0.58; margin-bottom: 0.3rem;
+}
+.cta-title {
+  font-family: 'Cinzel', serif; font-size: 1.05rem;
+  color: var(--parchment); letter-spacing: 0.06em;
+}
+.cta-desc { font-size: 0.88rem; font-style: italic; color: var(--dim); margin-top: 0.3rem; }
+.cta-btn {
+  display: inline-flex; align-items: center; gap: 0.6rem;
+  border: 1.5px solid var(--gold); color: var(--gold);
+  font-family: 'Cinzel', serif; font-size: 0.68rem;
+  letter-spacing: 0.24em; padding: 0.78rem 1.7rem;
+  text-decoration: none; transition: all 0.3s; white-space: nowrap;
+}
+.cta-btn:hover { background: var(--gold); color: var(--deep); }
+
+/* ═══════════════════════════════
+   AUTHOR
+═══════════════════════════════ */
+.section-author {
+  background: var(--deep); padding: 7rem 4rem; position: relative;
+}
+.section-author::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent); opacity: 0.22;
+}
+.author-inner {
+  max-width: 1080px; margin: 0 auto;
+  display: grid; grid-template-columns: 250px 1fr; gap: 5rem; align-items: start;
+}
+.author-left { display: flex; flex-direction: column; align-items: center; }
+.author-frame { position: relative; }
+.author-photo {
+  width: 210px; height: 270px; object-fit: cover;
+  border: 2px solid rgba(201,168,76,0.4);
+  filter: sepia(12%) contrast(1.05); display: block;
+}
+.author-frame::before {
+  content: ''; position: absolute; top: -8px; left: -8px; right: -8px; bottom: -8px;
+  border: 1px solid rgba(201,168,76,0.14); pointer-events: none;
+}
+.author-plate { margin-top: 1.3rem; text-align: center; }
+.author-plate .aname {
+  font-family: 'Cinzel', serif; font-size: 0.88rem;
+  letter-spacing: 0.2em; color: var(--gold);
+}
+.author-plate .atitle {
+  font-size: 0.76rem; font-style: italic;
+  color: var(--gold-pale); opacity: 0.62; margin-top: 0.2rem; letter-spacing: 0.08em;
+}
+.section-kicker {
+  font-family: 'Cinzel', serif; font-size: 0.58rem;
+  letter-spacing: 0.4em; color: var(--gold); opacity: 0.62; margin-bottom: 0.6rem;
+}
+.section-title {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(1.4rem, 3vw, 2rem);
+  color: var(--parchment); letter-spacing: 0.05em;
+  margin-bottom: 2.2rem; line-height: 1.25;
+}
+.section-title span { color: var(--gold); }
+.author-paras p {
+  font-size: 1.02rem; line-height: 2; color: var(--dim);
+  margin-bottom: 1.5rem; padding-left: 1rem;
+  border-left: 1px solid rgba(201,168,76,0.12);
+}
+.para-topic {
+  font-family: 'Cinzel', serif; font-size: 0.6rem;
+  letter-spacing: 0.28em; color: var(--gold); opacity: 0.58;
+  display: block; margin-bottom: 0.35rem;
+}
+
+/* ═══════════════════════════════
+   INQUIRY SECTION
+═══════════════════════════════ */
+.section-inquiry {
+  position: relative;
+  background: url('https://github.com/ramachandra1975/Spandana-Shodha-/raw/main/background1.png') center center / cover no-repeat;
+  padding: 7rem 4rem;
+}
+.section-inquiry::before {
+  content: ''; position: absolute; inset: 0; background: rgba(13,10,6,0.87);
+}
+.inquiry-inner {
+  position: relative; z-index: 1;
+  max-width: 820px; margin: 0 auto;
+}
+.inquiry-top {
+  text-align: center; margin-bottom: 3rem;
+}
+.inquiry-intro {
+  font-style: italic; color: var(--dim);
+  font-size: 1.03rem; line-height: 1.75; margin-bottom: 1rem;
+}
+.contact-line {
+  font-family: 'Cinzel', serif; font-size: 0.72rem;
+  letter-spacing: 0.2em; color: var(--gold); opacity: 0.7;
+}
+.contact-line a { color: var(--gold); text-decoration: none; }
+.contact-line a:hover { text-decoration: underline; }
+
+/* JotForm embed */
+.jotform-wrap {
+  width: 100%; background: rgba(249,242,227,0.03);
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.jotform-wrap iframe {
+  width: 100%; min-height: 650px; border: none; display: block;
+}
+
+/* fallback form (shown if iframe blocked) */
+.form-grid { display: grid; gap: 1.2rem; margin-top: 2rem; }
+.form-row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2rem; }
+.fgroup { display: flex; flex-direction: column; gap: 0.38rem; }
+.fgroup label {
+  font-family: 'Cinzel', serif; font-size: 0.6rem;
+  letter-spacing: 0.28em; color: var(--gold); opacity: 0.75;
+}
+.fgroup input, .fgroup select, .fgroup textarea {
+  background: rgba(249,242,227,0.04); border: 1px solid rgba(201,168,76,0.22);
+  color: var(--parchment); font-family: 'Cormorant Garamond', serif;
+  font-size: 0.97rem; padding: 0.72rem 1rem; outline: none;
+  transition: border-color 0.28s; width: 100%;
+}
+.fgroup input:focus, .fgroup select:focus, .fgroup textarea:focus { border-color: var(--gold); }
+.fgroup select { appearance: none; cursor: pointer; }
+.fgroup select option { background: #0D0A06; }
+.fgroup textarea { resize: vertical; min-height: 105px; }
+.submit-btn {
+  display: inline-flex; align-items: center; gap: 0.7rem;
+  background: transparent; border: 1.5px solid var(--gold); color: var(--gold);
+  font-family: 'Cinzel', serif; font-size: 0.72rem; letter-spacing: 0.3em;
+  padding: 1rem 2.4rem; cursor: pointer; transition: all 0.32s; margin-top: 0.5rem;
+}
+.submit-btn:hover { background: var(--gold); color: var(--deep); }
+
+/* ═══════════════════════════════
+   FOOTER
+═══════════════════════════════ */
+footer {
+  background: var(--deep); border-top: 1px solid rgba(201,168,76,0.1);
+  padding: 2.2rem 3.5rem;
+  display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;
+}
+.foot-brand {
+  font-family: 'Cinzel', serif; font-size: 0.82rem;
+  letter-spacing: 0.22em; color: var(--gold); opacity: 0.62;
+}
+.foot-links { display: flex; gap: 1.4rem; flex-wrap: wrap; }
+.foot-links a {
+  font-size: 0.76rem; color: rgba(249,242,227,0.38);
+  text-decoration: none; letter-spacing: 0.05em; transition: color 0.2s;
+}
+.foot-links a:hover { color: var(--gold); }
+.foot-contact {
+  font-size: 0.74rem; color: rgba(249,242,227,0.3); font-style: italic;
+}
+.foot-contact a { color: rgba(201,168,76,0.45); text-decoration: none; }
+
+/* ═══════════════════════════════
+   CHATBOT BUBBLE
+═══════════════════════════════ */
+.chatbot-bubble {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 10000;
+  display: flex; flex-direction: column; align-items: flex-end; gap: 0.6rem;
+}
+.chatbot-tooltip {
+  background: rgba(13,10,6,0.95); border: 1px solid rgba(201,168,76,0.35);
+  padding: 0.6rem 1rem; font-size: 0.82rem; color: var(--gold-pale);
+  font-style: italic; max-width: 230px; text-align: center; line-height: 1.4;
+  backdrop-filter: blur(8px);
+}
+.chatbot-btn {
+  width: 60px; height: 60px; border-radius: 50%;
+  background: var(--gold); border: none; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.4);
+  transition: all 0.3s; font-size: 1.5rem;
+}
+.chatbot-btn:hover { background: var(--gold-light); transform: scale(1.08); }
+.chatbot-panel {
+  position: fixed; bottom: 5.5rem; right: 2rem; z-index: 9999;
+  width: 380px; height: 550px;
+  border: 1px solid rgba(201,168,76,0.3);
+  background: #0D0A06; box-shadow: 0 8px 40px rgba(0,0,0,0.6);
+  display: none; flex-direction: column;
+  overflow: hidden;
+}
+.chatbot-panel.open { display: flex; }
+.chatbot-header {
+  background: rgba(201,168,76,0.1);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 0.8rem 1.2rem;
+  display: flex; justify-content: space-between; align-items: center;
+}
+.chatbot-header span {
+  font-family: 'Cinzel', serif; font-size: 0.75rem;
+  letter-spacing: 0.2em; color: var(--gold);
+}
+.chatbot-close {
+  background: none; border: none; color: var(--gold);
+  cursor: pointer; font-size: 1.1rem; opacity: 0.7;
+  transition: opacity 0.2s;
+}
+.chatbot-close:hover { opacity: 1; }
+.chatbot-panel iframe {
+  flex: 1; width: 100%; border: none;
+}
+
+/* ═══════════════════════════════
+   ANIMATIONS
+═══════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(22px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE
+═══════════════════════════════ */
+@media (max-width: 1000px) {
+  .subdomain-cards { grid-template-columns: repeat(2,1fr); }
+}
+@media (max-width: 768px) {
+  nav { padding: 0.9rem 1.4rem; }
+  .nav-brand .brand-sub { display: none; }
+  .topic-section { padding: 4.5rem 1.6rem; }
+  .topic-header { grid-template-columns: 1fr; gap: 1.2rem; }
+  .topic-number { font-size: 4rem; }
+  .topic-body { grid-template-columns: 1fr; gap: 1.5rem; }
+  .subdomain-cta { flex-direction: column; gap: 1.3rem; }
+  .author-inner { grid-template-columns: 1fr; gap: 3rem; }
+  .author-left { align-items: flex-start; }
+  .section-inquiry { padding: 4.5rem 1.6rem; }
+  .form-row2 { grid-template-columns: 1fr; }
+  footer { flex-direction: column; text-align: center; }
+  .subdomain-cards { grid-template-columns: 1fr 1fr; }
+  .chatbot-panel { width: 95vw; right: 2.5vw; }
+}
+@media (max-width: 480px) {
+  .subdomain-cards { grid-template-columns: 1fr; }
+  .hero-pills { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════
+     PRIMARY NAVIGATION
+══════════════════════════════════ -->
+<nav>
+  <a href="#hero" class="nav-logo">
+    <img src="https://github.com/ramachandra1975/Spandana-Shodha-/raw/main/logo.png" alt="Spandana Logo">
+    <div class="nav-brand">
+      <span class="brand-name">SPANDANA</span>
+      <span class="brand-sub">Aesthetics of Society · culturalmusings.com</span>
+    </div>
+  </a>
+
+  <div class="nav-right">
+
+    <!-- BUTTON 1: Topics on this page -->
+    <div class="nav-menu-wrap">
+      <button class="menu-btn" id="menuBtn">TOPICS <span class="chevron">▾</span></button>
+      <div class="dropdown" id="dropdown">
+        <div class="dd-section">
+          <div class="dd-label">TOPICS ON THIS PAGE</div>
+          <a href="#panini">Panini Ashtadhyayi</a>
+          <a href="#bioresonance">Bioresonance &amp; Resonant Universe</a>
+          <a href="#karanas">Karanas Biomechanics &amp; Astrology</a>
+          <a href="#mudras">Mudras &amp; Human Evolution</a>
+          <a href="#saptaswaras">Sapta Swaras as Healing Sciences</a>
+          <a href="#consciousness">Holistic Human Consciousness</a>
+        </div>
+        <div class="dd-section">
+          <div class="dd-label">CONNECT</div>
+          <a href="#author">About the Author</a>
+          <a href="#inquiry">Submit an Inquiry</a>
+          <a href="#" id="openChat">💬 Chat with Us</a>
+        </div>
+      </div>
+    </div>
+
+    <!-- BUTTON 2: Subdomains -->
+    <div class="nav-menu-wrap">
+      <button class="menu-btn sub-btn" id="subBtn">SUBDOMAINS <span class="chevron">▾</span></button>
+      <div class="dropdown" id="dropdownSub">
+        <div class="dd-section">
+          <div class="dd-label">EXPLORE OUR SUBDOMAINS</div>
+          <a href="https://natyashastra.culturalmusings.com" class="sub-link" target="_blank">
+            <span class="sub-name">Natyashastra &amp; Classical Arts</span>
+            <span class="sub-url">natyashastra.culturalmusings.com ↗</span>
+          </a>
+          <a href="https://bioresonancemusings.culturalmusings.com" class="sub-link" target="_blank">
+            <span class="sub-name">Bioresonance &amp; Resonant Universe</span>
+            <span class="sub-url">bioresonancemusings.culturalmusings.com ↗</span>
+          </a>
+          <a href="https://nada-chikitsa.culturalmusings.com" class="sub-link" target="_blank">
+            <span class="sub-name">Nada Chikitsa — Sound Healing</span>
+            <span class="sub-url">nada-chikitsa.culturalmusings.com ↗</span>
+          </a>
+          <a href="https://masterconsciousprotocol.culturalmusings.com" class="sub-link" target="_blank">
+            <span class="sub-name">Master Conscious Protocol</span>
+            <span class="sub-url">masterconsciousprotocol.culturalmusings.com ↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</nav>
+
+<!-- ══════════════════════════════════
+     HERO
+══════════════════════════════════ -->
+<section class="hero" id="hero">
+  <div class="hero-inner">
+    <div class="hero-kicker">✦ &nbsp; SPANDANA SHODHA — THE LIVING INQUIRY &nbsp; ✦</div>
+    <h1 class="hero-title">Span<span>dana</span></h1>
+    <p class="hero-tagline">Where the Primordial Vibration Meets the Architecture of Consciousness</p>
+    <div class="ornament"><span></span><i>◈</i><span></span></div>
+    <p class="hero-desc">
+      A unified inquiry spanning six pillars of ancient intelligence — from Panini's grammar
+      of the cosmos to the healing frequencies of the Sapta Swaras — each illuminating a
+      different facet of the same living truth: that the universe is vibration, and the human
+      being is its most refined instrument of self-knowledge.
+    </p>
+    <div class="hero-pills">
+      <a href="#panini" class="pill">Panini Ashtadhyayi</a>
+      <a href="#bioresonance" class="pill">Bioresonance</a>
+      <a href="#karanas" class="pill">Karanas &amp; Astrology</a>
+      <a href="#mudras" class="pill">Mudras &amp; Evolution</a>
+      <a href="#saptaswaras" class="pill">Sapta Swaras</a>
+      <a href="#consciousness" class="pill">Master Conscious Protocol</a>
+    </div>
+
+    <!-- SECOND MENU — SUBDOMAIN CARDS -->
+    <div class="subdomain-bar">
+      <div class="subdomain-bar-label">✦ &nbsp; EXPLORE OUR SUBDOMAINS &nbsp; ✦</div>
+      <div class="subdomain-cards">
+        <a href="https://natyashastra.culturalmusings.com" class="sd-card" target="_blank">
+          <span class="sd-num">01 ·</span>
+          <span class="sd-name">Natyashastra &amp; Classical Arts</span>
+          <span class="sd-domain">natyashastra.culturalmusings.com</span>
+          <span class="sd-arrow">→ Enter</span>
+        </a>
+        <a href="https://bioresonancemusings.culturalmusings.com" class="sd-card" target="_blank">
+          <span class="sd-num">02 ·</span>
+          <span class="sd-name">Bioresonance &amp; Resonant Universe</span>
+          <span class="sd-domain">bioresonancemusings.culturalmusings.com</span>
+          <span class="sd-arrow">→ Enter</span>
+        </a>
+        <a href="https://nada-chikitsa.culturalmusings.com" class="sd-card" target="_blank">
+          <span class="sd-num">03 ·</span>
+          <span class="sd-name">Nada Chikitsa — Sound Healing</span>
+          <span class="sd-domain">nada-chikitsa.culturalmusings.com</span>
+          <span class="sd-arrow">→ Enter</span>
+        </a>
+        <a href="https://masterconsciousprotocol.culturalmusings.com" class="sd-card" target="_blank">
+          <span class="sd-num">04 ·</span>
+          <span class="sd-name">Master Conscious Protocol</span>
+          <span class="sd-domain">masterconsciousprotocol.culturalmusings.com</span>
+          <span class="sd-arrow">→ Enter</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TOPIC 1 — PANINI ASHTADHYAYI
+══════════════════════════════════ -->
+<section class="topic-section dark" id="panini">
+  <div class="topic-inner">
+    <div class="topic-header">
+      <div class="topic-number">01</div>
+      <div class="topic-meta">
+        <div class="topic-tag">CHAPTER ONE · NATYASHASTRA.CULTURALMUSINGS.COM</div>
+        <h2 class="topic-title">Panini's Ashtadhyayi —<br><span>Grammar as Cosmic Architecture</span></h2>
+        <p class="topic-subtitle">How 3,959 sutras composed in the 4th century BCE encode the generative logic of language, mind, and universe — and anticipate every formal system we now call artificial intelligence</p>
+        <div class="topic-divider"></div>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-col">
+        <p>The Ashtadhyayi — Panini's monumental grammar of Sanskrit — stands as perhaps the most extraordinary intellectual achievement in recorded human history. Its 3,959 sutras, arranged with a compression and precision that no computational algorithm of our time has yet surpassed, do not merely describe a language. They construct a meta-language: a formal system of rules that generates all possible grammatical Sanskrit utterances from a minimal set of axioms. In this singular act, Panini did not describe the world — he revealed the architecture underlying it. The grammar is not a map of language; it is a map of mind itself.</p>
+        <p>What is most remarkable about the Ashtadhyayi is not its comprehensiveness but its economy. Each sutra is designed to be as brief as possible — often a single syllable — and yet through the mechanism of anuvriitti, the carryover of elements from preceding rules, the entire grammar functions as a dynamic, self-referential generative engine. The system anticipates Boolean logic, context-free grammars, and the formal language theory that would only emerge in Western mathematics two and a half millennia later. Noam Chomsky's 1956 formalization of generative grammar — the intellectual foundation of modern linguistics and AI — is structurally isomorphic to what Panini encoded in ancient India using nothing but an extraordinary mind.</p>
+        <h3>The Shiva Sutras — An Acoustic Cosmogony</h3>
+        <p>The fourteen Shiva Sutras that precede the main grammar are of particular cosmological significance. These verses, which Panini is said to have received through the sound of Nataraja's cosmic drum, organize all Sanskrit phonemes into a pattern that mirrors the creative and dissolving rhythm of the universe itself. They are not arbitrary arrangements: they encode an acoustic cosmogony in which the vowels and consonants of Sanskrit are not random sounds but vibrational categories whose sequences correspond to the states of matter, consciousness, and time. To recite the Shiva Sutras in sequence is to trace, in sound, the arc of creation from the undifferentiated absolute to the structured multiplicity of the manifest world.</p>
+      </div>
+      <div class="topic-col">
+        <p>Modern computer science distinguishes between data, information, knowledge, and intelligence. The sutra of Panini operates at all four levels simultaneously. As raw text, it is data. As a grammatical rule, it is information. As part of the larger systemic grammar, it is knowledge. But as an active generative principle — one that, in combination with other sutras, produces infinite syntactic possibilities from finite means — it functions as distributed intelligence. The resemblance to neural network architectures is not cosmetic: it is structural, formal, and increasingly recognized by computational linguists working at the frontier of AI research.</p>
+        <blockquote><p>"Before the silicon, before the transistor, before the binary digit — there was the sutra. The minimal, the precise, the generative. Panini built a mind and called it grammar."</p></blockquote>
+        <p>The meta-rules (paribhashas) that govern how sutras interact are precisely analogous to what in machine learning are called hyperparameters — rules about how the learning rules themselves operate. Panini's genius was to recognize that any complete formal system requires not just rules but rules-about-rules, encoded at a level of abstraction that the Western philosophical tradition would only reach with Gödel, Turing, and the formalists of the early 20th century.</p>
+        <h3>Anubandhas — The Hidden Variables of Ancient Intelligence</h3>
+        <p>Panini's use of metalinguistic tags called anubandhas — markers that affect rule application but are deleted from the surface output — is formally identical to the concept of hidden states in recurrent neural networks. The surface utterance is produced, but the mechanism that produced it leaves no visible trace except in its effect on subsequent processing. This is precisely the architecture of memory in modern AI: the hidden layer that shapes output without being output. That a Sanskrit grammarian of antiquity arrived at this architectural insight through pure deductive reasoning, without any computational substrate, is perhaps the most astonishing fact in the intellectual history of our species.</p>
+      </div>
+    </div>
+    <div class="topic-bg-panel">
+      <div class="panel-quote">
+        "The Ashtadhyayi is not a grammar book. It is the earliest known formal proof that language has structure — and that structure has a mind behind it that is not human but cosmic."
+        <cite>— Spandana Shodha</cite>
+      </div>
+    </div>
+    <div class="subdomain-cta">
+      <div class="cta-text">
+        <div class="cta-label">EXPLORE THE FULL PORTAL</div>
+        <div class="cta-title">Natyashastra &amp; Classical Arts</div>
+        <div class="cta-desc">Five in-depth chapters on Panini, Mudras, Rasa Theory, Karanas &amp; the bridge to AI</div>
+      </div>
+      <a href="https://natyashastra.culturalmusings.com" class="cta-btn" target="_blank">ENTER SUBDOMAIN →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TOPIC 2 — BIORESONANCE
+══════════════════════════════════ -->
+<section class="topic-section mid" id="bioresonance">
+  <div class="topic-inner">
+    <div class="topic-header">
+      <div class="topic-number">02</div>
+      <div class="topic-meta">
+        <div class="topic-tag">CHAPTER TWO · BIORESONANCEMUSINGS.CULTURALMUSINGS.COM</div>
+        <h2 class="topic-title">Bioresonance &amp;<br><span>The Resonant Universe</span></h2>
+        <p class="topic-subtitle">From Vedic Spanda to quantum field theory — the ancient and modern convergence on a universe whose ultimate substrate is vibration, and a science of healing built upon that recognition</p>
+        <div class="topic-divider"></div>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-col">
+        <p>The Kashmiri Shaiva concept of Spanda — the primordial throb that is the most fundamental characteristic of reality — finds its modern scientific equivalent in quantum field theory, which describes all particles not as solid objects but as excitations of underlying quantum fields. The electron is not a billiard ball; it is a quantized oscillation of the electron field. Matter, at its deepest level, is not stuff — it is organized vibration. When the ancient Indian tradition asserts that the universe is at its root Nada Brahman — primordial sound — it makes a claim that our best contemporary physics does not refute but rather confirms and deepens with the precision of mathematics and measurement.</p>
+        <p>Bioresonance science is the discipline that applies this vibrational understanding specifically to living systems. Fritz-Albert Popp's landmark research on biophoton emission demonstrated that all living cells spontaneously emit coherent light — light with the quantum-optical property of coherence found otherwise only in lasers. This coherent biophoton field serves as the body's primary long-range communication system, coordinating biological processes at speeds and over distances that chemical signaling cannot account for. The body glows — not metaphorically, but measurably, in the ultra-weak light of biological coherence.</p>
+        <h3>The Living Matrix — Where Physics Meets Physiology</h3>
+        <p>James Oschman's concept of the "living matrix" — the body-wide network of connective tissue, cytoskeleton, and nuclear scaffold that physically connects every cell to every other — provides the structural basis for understanding the body as an integrated electromagnetic system. This matrix is not mechanical scaffolding; it is a biological semiconductor conducting electrical current and vibrational information throughout the organism at near-instantaneous speed. When stimulated by touch, movement, breath, or sound, it transduces that input into electromagnetic signals that propagate through the biofield, modulating cellular activity in ways that explain the mechanisms of acupuncture, marma therapy, yoga, and classical Indian dance.</p>
+      </div>
+      <div class="topic-col">
+        <p>The health of a living system, in the bioresonance framework, is a function of the coherence of its vibrational organization. Disease is not primarily the invasion of a foreign agent — it is a loss of vibrational coherence, a breakdown in the organism's self-organizing resonance. Heart rate variability (HRV) — the most clinically validated proxy measure of systemic biofield coherence — consistently correlates with the full spectrum of health outcomes, from cardiovascular risk to cognitive performance to emotional regulation. The healthiest human beings are those whose biological oscillators beat in the most harmonious mutual resonance.</p>
+        <blockquote><p>"The universe does not contain vibration as one of its properties. The universe is vibration, examining itself through increasingly refined instruments — the last and finest of which is the human nervous system."</p></blockquote>
+        <p>The National Institutes of Health formally recognized the biofield concept in 1994, defining it as the endogenous electromagnetic field of the organism that regulates biological processes. This recognition marked a paradigm shift: the living body is not merely a chemical system but an electromagnetic one. The ancient Indian sciences of Ayurveda, Yoga, and Natyashastra were — in the framework of bioresonance — sophisticated empirical technologies for the regulation and optimization of the human biofield, developed through millennia of systematic inquiry long before the vocabulary of electromagnetism existed to describe what they were achieving.</p>
+        <h3>Resonance as the Organising Principle of Nature</h3>
+        <p>Resonance — the phenomenon whereby a vibrating system selectively amplifies frequencies that match its own natural oscillation — is the organizing principle of nature at every scale. Neural resonance produces the coherent states we experience as consciousness. Bioresonance therapy leverages this principle directly: by introducing specific electromagnetic frequencies matched to the natural resonant frequencies of healthy tissues, it supports the body's self-organizing tendency toward coherence — the same therapeutic logic that the Nada Chikitsa tradition arrived at through the medium of music millennia ago.</p>
+      </div>
+    </div>
+    <div class="topic-bg-panel">
+      <div class="panel-quote">
+        "The body is not dark. It glows with the light of coherence — a bioluminescence so subtle, so precisely organized, that only an instrument of comparable refinement can receive it."
+        <cite>— Spandana Shodha</cite>
+      </div>
+    </div>
+    <div class="subdomain-cta">
+      <div class="cta-text">
+        <div class="cta-label">EXPLORE THE FULL PORTAL</div>
+        <div class="cta-title">Bioresonance &amp; Resonant Universe</div>
+        <div class="cta-desc">Five chapters spanning biofield science, Karana biomechanics, astrological inferences &amp; integrative health</div>
+      </div>
+      <a href="https://bioresonancemusings.culturalmusings.com" class="cta-btn" target="_blank">ENTER SUBDOMAIN →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TOPIC 3 — KARANAS & ASTROLOGY
+══════════════════════════════════ -->
+<section class="topic-section dark" id="karanas">
+  <div class="topic-inner">
+    <div class="topic-header">
+      <div class="topic-number">03</div>
+      <div class="topic-meta">
+        <div class="topic-tag">CHAPTER THREE · BIORESONANCEMUSINGS.CULTURALMUSINGS.COM</div>
+        <h2 class="topic-title">Karanas Biomechanics<br><span>&amp; Astrological Inferences</span></h2>
+        <p class="topic-subtitle">The 108 sculptural postures of Chidambaram as a biomechanical prescription system — and the cosmological mathematics connecting their number to the geometry of the solar system</p>
+        <div class="topic-divider"></div>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-col">
+        <p>The 108 Karanas described in the Natyashastra and immortalized in the sculptural friezes of the Chidambaram Nataraja temple represent the most comprehensive biomechanical notation system in the ancient world. Each Karana is a complete unit of movement: a specific combination of hand gesture, body position, and footwork. Modern kinesiological analysis reveals consistent application of biomechanical principles — optimal weight distribution, spinal alignment, counter-rotation, momentum transfer — that sports biomechanists have independently derived through force-plate analysis and motion capture studies millennia later.</p>
+        <p>The number 108 is not incidental. The ratio of the Sun's distance from Earth to the Sun's diameter is approximately 108; the ratio of the Moon's distance from Earth to the Moon's diameter is also approximately 108. That the Karanas number exactly 108 is a cosmological signature: the complete vocabulary of classical movement is calibrated to the same mathematical relationships that govern the celestial mechanics of our solar system. The body of the dancer, in executing the full Karana vocabulary, traces the mathematics of the cosmos in flesh and breath.</p>
+        <h3>Physiological Precision of Each Karana</h3>
+        <p>Each Karana creates a specific geometric configuration that determines the distribution of gravitational load through the skeleton, the pattern of muscular co-activation required, and the specific deformation pattern induced in the connective tissue matrix. Since connective tissue is piezoelectric — it generates electrical current when mechanically deformed — each Karana produces a specific pattern of bioelectrical stimulation that propagates through the living matrix and modulates the body's electromagnetic field in precisely the ways that classical therapeutic descriptions suggest.</p>
+      </div>
+      <div class="topic-col">
+        <p>The inversion postures encoded in several Karanas produce measurable changes in venous return, intracranial pressure dynamics, and pituitary secretory activity. The spinal twisting movements stimulate the adrenal cortex and enteric nervous system. The plié-based movements that engage deep hip rotators activate the pelvic parasympathetic plexus, producing measurable reductions in sympathetic tone and cortisol. The classical teaching that specific Karanas address specific physiological conditions is not folklore — it is encoded physiological knowledge that modern research tools are only now sophisticated enough to verify.</p>
+        <blockquote><p>"The sculptor of the Karana does not depict a dancer. He preserves a law of physics in the grammar of the human body — held in stone against the forgetting that is time's most reliable achievement."</p></blockquote>
+        <p>The astrological dimension of the Karanas connects through the concept of Kala — sacred time — in Jyotish. Each Karana is associated in the commentarial literature with specific planetary energies, lunar days, and auspicious times. This is temporal biomedicine: the recognition that the body's biological receptivity to specific movement intervention varies with the position of celestial bodies, and that therapeutic efficacy is maximized when practice aligns with the body's natural cosmic rhythms. The HeartMath Institute's research on geomagnetic influences on HRV provides a plausible mechanism: Earth's geomagnetic field — modulated by solar and lunar activity — directly influences the autonomic nervous system, mediating the body's responsiveness to therapeutic movement.</p>
+        <h3>Planetary Fields and Biological Receptivity</h3>
+        <p>The solar 11-year sunspot cycle correlates with documented cycles of geomagnetic activity, epidemic disease, and large-scale human behavioral patterns. The lunar cycle correlates with menstrual rhythms, sleep patterns, and psychiatric event rates in ways that the Jyotish tradition mapped empirically over millennia. The Vedic tradition's insistence on timing therapeutic interventions to lunar and solar cycles is, in the light of chronobiology and geomagnetic medicine, sophisticated applied temporal biology: the art of working with the body's natural rhythmic receptivity rather than against it.</p>
+      </div>
+    </div>
+    <div class="topic-bg-panel">
+      <div class="panel-quote">
+        "The Karana is a prescription — not for a disease, but for a specific resonant configuration of the body in relation to gravity, space, and the electromagnetic geometry of the moment."
+        <cite>— Spandana Shodha</cite>
+      </div>
+    </div>
+    <div class="subdomain-cta">
+      <div class="cta-text">
+        <div class="cta-label">EXPLORE THE FULL PORTAL</div>
+        <div class="cta-title">Bioresonance &amp; Resonant Universe</div>
+        <div class="cta-desc">Deep dives into Karana biomechanics, astrological inferences, biofield coherence &amp; integrative healing</div>
+      </div>
+      <a href="https://bioresonancemusings.culturalmusings.com" class="cta-btn" target="_blank">ENTER SUBDOMAIN →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TOPIC 4 — MUDRAS & EVOLUTION
+══════════════════════════════════ -->
+<section class="topic-section alt" id="mudras">
+  <div class="topic-inner">
+    <div class="topic-header">
+      <div class="topic-number">04</div>
+      <div class="topic-meta">
+        <div class="topic-tag">CHAPTER FOUR · NATYASHASTRA.CULTURALMUSINGS.COM</div>
+        <h2 class="topic-title">Mudras &amp; Their Inferences<br><span>to Human Evolution</span></h2>
+        <p class="topic-subtitle">Hand gestures as bioelectric switches, neurological keys, and evolutionary signatures — classical mudra science through the lens of embodied cognition and evolutionary neuroscience</p>
+        <div class="topic-divider"></div>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-col">
+        <p>The Natyashastra enumerates twenty-eight single-hand gestures and twenty-three combined-hand gestures with their precise forms, associated meanings, and ritual applications. Western scholarship has long categorized mudras as symbolic gesture — a kind of sacred semaphore communicating narrative content in temple sculpture and classical performance. This interpretation is severely incomplete. Mudras are functional bioelectric interfaces between the human nervous system and the electromagnetic field it inhabits — precision technologies of consciousness whose mechanism is only now becoming legible to contemporary neuroscience and bioelectromagnetics.</p>
+        <p>The evolutionary argument for mudras begins with a remarkable anatomical fact: the neural real estate devoted to the hands in the primary motor and somatosensory cortices is disproportionately enormous — a disproportion immortalized in the grotesque homunculus diagram of neuroscience. The development of the precision grip that distinguishes Homo sapiens from all other primates is coterminous with the explosion of symbolic cognition, language, and art that defines the Upper Paleolithic. The hand did not follow the brain's expansion; it co-created it.</p>
+        <h3>The Five Elements in the Fingertips</h3>
+        <p>Each finger corresponds in Ayurvedic anatomy to one of the five Mahabhutas: thumb to Agni (fire), index to Vayu (air), middle to Akasha (ether), ring to Prithvi (earth), little finger to Jala (water). When specific fingers are brought into contact, they complete circuits within the body's bioelectric system — circuits that modulate endocrine function, autonomic nervous tone, and brainwave coherence in ways documented by emerging research in acupressure and dermal bioelectricity.</p>
+      </div>
+      <div class="topic-col">
+        <p>The Hasta Vinyasa — the sequencing of mudras through classical dance — can be understood as evolutionary recapitulation: a systematic activation of neural circuits tracing the history of human cognitive development from proprioceptive self-awareness through symbolic representation to abstract thought. When a Bharatanatyam dancer moves through a raga-based sequence of hastas, they are not merely telling a story — they are enacting a journey through the architecture of consciousness itself, layer by layer, from the elemental to the transcendent.</p>
+        <blockquote><p>"The mudra is not the dance of the hand. It is the hand's memory of being cosmos, briefly recalled into form — the universe recognizing its own fingers."</p></blockquote>
+        <p>The discovery of mirror neurons — cells that fire both when an organism performs an action and when it observes that action — provides a plausible neural substrate for mudra practice and for the entire aesthetic theory of classical Indian performance. The Rasa experience of the audience is not metaphor but a measurable neurological event: the resonant activation of the audience's motor and emotional circuits by the precise gestural language of the trained performer.</p>
+        <h3>Mudra Practice as Neuroplastic Technology</h3>
+        <p>The principle of Hebbian learning — neurons that fire together, wire together — means that repeated, precise co-activation of specific hand-posture patterns with specific attentional states, over thousands of hours of classical training, produces measurable and durable changes in neural architecture. Studies of long-term meditators document significant grey matter increases in regions implicated in interoception, emotional regulation, and embodied self-awareness. Classical dance training, combining meditative attentional precision with multi-limb coordination and expressive emotional inhabiting, likely produces neuroplastic changes of comparable scope — a hypothesis the emerging field of neuroaesthetics is now beginning to investigate.</p>
+      </div>
+    </div>
+    <div class="topic-bg-panel">
+      <div class="panel-quote">
+        "The hand that gestures in classical dance is not performing a role. It is speaking in the oldest language — the language the body spoke before it had words, the language the universe speaks still."
+        <cite>— Spandana Shodha</cite>
+      </div>
+    </div>
+    <div class="subdomain-cta">
+      <div class="cta-text">
+        <div class="cta-label">EXPLORE THE FULL PORTAL</div>
+        <div class="cta-title">Natyashastra &amp; Classical Arts</div>
+        <div class="cta-desc">Five chapters on Panini, Mudras, Rasa Theory, Karanas &amp; the Sanskrit-AI bridge</div>
+      </div>
+      <a href="https://natyashastra.culturalmusings.com" class="cta-btn" target="_blank">ENTER SUBDOMAIN →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TOPIC 5 — SAPTA SWARAS + AI
+══════════════════════════════════ -->
+<section class="topic-section mid" id="saptaswaras">
+  <div class="topic-inner">
+    <div class="topic-header">
+      <div class="topic-number">05</div>
+      <div class="topic-meta">
+        <div class="topic-tag">CHAPTER FIVE · NADA-CHIKITSA.CULTURALMUSINGS.COM</div>
+        <h2 class="topic-title">Sapta Swaras as Healing Sciences<br><span>&amp; Panini's Bridge to AI Frameworks</span></h2>
+        <p class="topic-subtitle">The seven notes as seven gateways into the body's endocrine architecture — and how the formal grammar of Sanskrit sound anticipates the computational logic of artificial intelligence</p>
+        <div class="topic-divider"></div>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-col">
+        <p>The seven Swaras of Indian classical music — Sa, Ri, Ga, Ma, Pa, Dha, Ni — are not merely the notes of a scale. In the Nada Chikitsa tradition, they are seven distinct vibrational medicines, each corresponding to a physiological system, a psychological state, a chakra, a planetary influence, and a therapeutic application. The cochlea — the spiral fluid-filled chamber of the inner ear — is structured to resonate preferentially at frequencies corresponding to the harmonic series of the musical scale. When a raga built on specific swaras is performed, the cochlea resonates actively, generating specific patterns of neural firing in the auditory cortex that propagate to limbic, autonomic, and endocrine centres throughout the body.</p>
+        <p>The correspondence between each Swara and a chakra has a plausible physiological interpretation through the anatomical correspondence between chakra locations and the major nerve plexuses. Sa corresponds to the Muladhara and adrenal glands; Ri to the Svadhisthana and gonads; Ga to the Manipura and pancreas; Ma to the Anahata and thymus; Pa to the Vishuddha and thyroid; Dha to the Ajna and pituitary; Ni to the Sahasrara and pineal. Research in psychoacoustics documents specific physiological effects of different frequency ranges on the autonomic nervous system — consistent with these classical correspondences. Swara Chikitsa prescriptions — Bhairavi for anxiety, Bilawal for homeostasis, Bhairav for dawn adrenocortical activation — are not folk remedies but systematic applications of acoustic pharmacology millennia in advance of our ability to measure them.</p>
+        <h3>Raga Chikitsa — The Science of Melodic Medicine</h3>
+        <p>A raga is not a scale. A scale is a collection of pitches. A raga is a modal framework specifying which pitches are available, how they are to be approached, ornamented, and sequenced — and crucially, at what time of day they are prescribed. The time theory of ragas is a theory of neurophysiological entrainment: the raga's acoustic characteristics are matched to the neurological state naturally predominating at a given time, deepening it rather than disrupting it. Late-night ragas like Darbari Kannada support the shift to contemplative stillness. Dawn ragas like Bhairav support the sleep-waking threshold. The raga does not impose a mood — it recognizes and deepens the body-mind's natural temporal intelligence.</p>
+      </div>
+      <div class="topic-col">
+        <p>The formal connection between Panini's phonological science and modern AI is precise and increasingly recognized. The Ashtadhyayi is a context-sensitive generative grammar — exactly the formal system type underlying transformer architectures, large language models, and neural network designs. The Shiva Sutras' organization of phonemes by acoustic feature prefigures the phonological feature matrices of 20th-century linguistics, which themselves became the representational foundation of early speech processing AI. The Nada Chikitsa tradition adds the acoustic-therapeutic dimension that AI has not yet incorporated: the recognition that sounds of language are not arbitrary labels for meanings but vibrational events with specific physiological effects intrinsic to their acoustic properties.</p>
+        <blockquote><p>"The AI language model learns the statistics of human utterance. The Nada practitioner learns the physics of it. Both study the same phenomenon — from opposite ends of the spectrum of intelligence."</p></blockquote>
+        <p>Current large language models process language as sequences of tokens — abstractions that entirely strip away the acoustic dimension of the words they represent. The model has no access to phonological properties, prosodic patterns, or the physiological resonance of the sounds it processes. The Nada Chikitsa tradition, in dialogue with the Ashtadhyayi's formal phonological insights and contemporary psychoacoustics, points toward an AI architecture that processes language not only at the semantic level but at the acoustic, prosodic, and physiological-resonance levels simultaneously — functions that presently require the rarest human expertise.</p>
+        <h3>The Four Levels of Sound — Para to Vaikhari</h3>
+        <p>The Tantric analysis of sound into four levels — Para (transcendent, pre-linguistic), Pashyanti (holistic intuition of meaning), Madhyama (inner speech), and Vaikhari (articulate utterance) — describes a hierarchy of language processing that AI systems currently engage only at the Vaikhari level. Genuine communication requires alignment across all four levels. The development of AI systems capable of operating at the depth of Pashyanti — or approaching the Para dimension of pure intentional awareness — is the ultimate horizon of AI research. The Nada tradition's cartography of these levels offers a philosophical map for a journey that will require both computational and contemplative intelligence to navigate.</p>
+      </div>
+    </div>
+    <div class="topic-bg-panel">
+      <div class="panel-quote">
+        "The ear is not a passive receiver. It is the body's most ancient instrument — a tuning fork shaped by millions of years of evolution to recognize the harmonics of a living world that has been singing since before the first cell divided."
+        <cite>— Spandana Shodha</cite>
+      </div>
+    </div>
+    <div class="subdomain-cta">
+      <div class="cta-text">
+        <div class="cta-label">EXPLORE THE FULL PORTAL</div>
+        <div class="cta-title">Nada Chikitsa — Sound Healing</div>
+        <div class="cta-desc">Five chapters on Nada Brahman, Sapta Swaras, Raga Chikitsa, Panini &amp; AI, and sonic integration</div>
+      </div>
+      <a href="https://nada-chikitsa.culturalmusings.com" class="cta-btn" target="_blank">ENTER SUBDOMAIN →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     TOPIC 6 — HOLISTIC CONSCIOUSNESS
+══════════════════════════════════ -->
+<section class="topic-section dark" id="consciousness">
+  <div class="topic-inner">
+    <div class="topic-header">
+      <div class="topic-number">06</div>
+      <div class="topic-meta">
+        <div class="topic-tag">CHAPTER SIX · MASTERCONSCIOUSPROTOCOL.CULTURALMUSINGS.COM</div>
+        <h2 class="topic-title">Holistic Approach to<br><span>Human Consciousness</span></h2>
+        <p class="topic-subtitle">The Master Conscious Protocol — a synthesis of Vedic cosmology, classical movement science, acoustic medicine, and the philosophy of awareness into a complete architecture of awakened human being</p>
+        <div class="topic-divider"></div>
+      </div>
+    </div>
+    <div class="topic-body">
+      <div class="topic-col">
+        <p>The convergence of ecological crisis, political fragmentation, technological acceleration, and epidemic mental illness that defines early 21st-century civilization is a single, unified crisis of consciousness — a collective failure of the awareness, empathy, systemic intelligence, and long-term orientation that characterize genuinely mature human minds. This crisis cannot be solved at the political, economic, or technological level alone. It requires transformation at the level of consciousness itself. The Master Conscious Protocol (MCP) is a response to this recognition: a comprehensive, practice-ready framework for the systematic cultivation of the full spectrum of human conscious capacity, grounded in the most sophisticated model of the human being that any civilization has produced.</p>
+        <p>The Pancha Kosha model of the Taittiriya Upanishad — which describes the human being as constituted by five interpenetrating layers, from the physical body through the vital-energetic, mental, intellectual, and bliss bodies, with the Atman as the witness-consciousness underlying all five — provides the MCP's primary ontological framework. This model, developed through millennia of rigorous introspective inquiry, provides a map of the human system of extraordinary practical utility, identifying distinct intervention points at which different healing and developmental modalities are most appropriately directed.</p>
+        <h3>The Four Pillars of the Protocol</h3>
+        <p>The MCP is organized around four pillars: Somatic Integration (Annamaya and Pranamaya Koshas through Karana-based movement and pranayama); Cognitive Clarity (Manomaya and Vijnanamaya through meditation, mantra, and self-inquiry); Affective Depth (Anandamaya through rasa-based aesthetic practice and devotional cultivation); and Transcendent Orientation (Atman dimension through direct recognition practices of Advaita Vedanta and Kashmir Shaivism). Together these constitute a complete technology of human transformation — alive in the creative tension between remembering and discovering.</p>
+      </div>
+      <div class="topic-col">
+        <p>The MCP is not another personal development system competing in the wellness market. It is a civilisational project premised on the recognition that sustainable systemic change at the collective level requires the transformation of the individuals who constitute the collective. A political system is ultimately an expression of the consciousness of its participants. No amount of structural reform will produce enduring change if the consciousness of the participants remains unchanged. The MCP addresses the root — consciousness itself — rather than its symptoms, however urgent those symptoms may be.</p>
+        <blockquote><p>"To treat the body and ignore the mind is to repair the instrument while the musician is absent. The Master Conscious Protocol refuses every amputation — of body from mind, of mind from spirit, of individual from cosmos."</p></blockquote>
+        <p>The daily practice structure — the Triloka Sadhana — is designed for integration into ordinary contemporary life. At its minimal form, executable in thirty minutes, it includes a brief Karana-based movement sequence, structured pranayama, and dual-phase meditation beginning with focused awareness and transitioning to open, non-referential consciousness. Practiced consistently, this produces measurable improvements in HRV, emotional regulation, cognitive clarity, and relational intelligence within weeks of beginning. The full protocol, developed over years, produces what the classical tradition calls Chitta Shuddhi — purification of consciousness — the transparent, spacious awareness from which genuinely wise action in the world naturally flows.</p>
+        <h3>Satsang — The Collective Technology of Consciousness</h3>
+        <p>The MCP recognizes that individual practice alone is insufficient for civilisational transformation. The classical concept of Satsang — the intentional community of truth-seekers — is understood in the protocol as a deliberate collective technology for holding and transmitting wisdom culture. Research in social neuroscience has documented the profound regulatory influence of social connection on individual physiology: the presence of a calm, attuned other is among the most powerful regulators of the autonomic nervous system available to a human being. A community of practitioners who have developed individual coherence through solo practice, gathering in shared practice, generates a collective coherence field whose regulatory influence extends to their families, communities, and institutions. This is the science behind the ancient teaching that a single awakened being can uplift thousands — and the vision of civilisational transformation that underlies the entirety of Spandana's work.</p>
+      </div>
+    </div>
+    <div class="topic-bg-panel">
+      <div class="panel-quote">
+        "A civilization that knows how to build faster machines while knowing less and less how to build wiser human beings is not progressing. The Master Conscious Protocol is a map — and a practice — for that horizon."
+        <cite>— Spandana Shodha</cite>
+      </div>
+    </div>
+    <div class="subdomain-cta">
+      <div class="cta-text">
+        <div class="cta-label">EXPLORE THE FULL PORTAL</div>
+        <div class="cta-title">Master Conscious Protocol</div>
+        <div class="cta-desc">Five chapters on holistic consciousness, Pancha Kosha, Protocol architecture, daily practice &amp; civilisational transformation</div>
+      </div>
+      <a href="https://masterconsciousprotocol.culturalmusings.com" class="cta-btn" target="_blank">ENTER SUBDOMAIN →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     AUTHOR
+══════════════════════════════════ -->
+<section class="section-author" id="author">
+  <div class="author-inner">
+    <div class="author-left">
+      <div class="author-frame">
+        <img src="https://github.com/ramachandra1975/Spandana-Shodha-/raw/main/image.jpg" alt="Author" class="author-photo">
+      </div>
+      <div class="author-plate">
+        <div class="aname">THE AUTHOR</div>
+        <div class="atitle">Scholar · Researcher · Practitioner</div>
+      </div>
+    </div>
+    <div class="author-right">
+      <div class="section-kicker">THE VOICE BEHIND SPANDANA</div>
+      <h2 class="section-title">A Journey Into<br><span>The Living Intelligence of the Ancients</span></h2>
+      <div class="author-paras">
+        <p>
+          <span class="para-topic">ON PANINI &amp; THE GRAMMAR OF COSMOS</span>
+          My encounter with the Ashtadhyayi was not academic — it was seismic. To read Panini
+          carefully is to realize that the entire edifice of Western formal logic, computational
+          linguistics, and artificial intelligence is, at its structural core, a rediscovery of
+          what one man mapped in ancient India using nothing but an extraordinary mind. The sutras
+          did not teach me Sanskrit grammar; they taught me that grammar is cosmology — that the
+          rules by which language generates meaning are the same rules by which consciousness
+          generates a world. Every subsequent inquiry in my work has been, in some sense, a
+          footnote to that recognition.
+        </p>
+        <p>
+          <span class="para-topic">ON BIORESONANCE &amp; THE RESONANT UNIVERSE</span>
+          The transition from the Ashtadhyayi to bioresonance was, for me, the transition from
+          the grammar of the visible to the grammar of the invisible — from the structured
+          surface of language to the vibrational substrate from which it arises. Reading Fritz-Albert
+          Popp's research on biophoton coherence alongside the Spanda Karikas of Vasugupta was
+          among the most intellectually vertiginous experiences of my life: two traditions, separated
+          by language, culture, and two millennia, arriving at the same fundamental recognition —
+          that the living body is not a machine but a field, not a mechanism but a music.
+        </p>
+        <p>
+          <span class="para-topic">ON KARANAS, MUDRAS &amp; EVOLUTIONARY INTELLIGENCE</span>
+          The Chidambaram temple friezes stopped me in my tracks the first time I stood before them.
+          Not because of their beauty — though they are beautiful beyond language — but because I
+          recognized, in those frozen movements, the postures of a physiological science of
+          extraordinary precision. Each Karana is a biomechanical equation, a hormonal prescription,
+          an electromagnetic event. The 108 Mudras of the classical tradition are not decorative;
+          they are the user interface of the human nervous system, designed by evolutionary
+          intelligence over millions of years and systematized by contemplative intelligence over
+          millennia of careful observation.
+        </p>
+        <p>
+          <span class="para-topic">ON SAPTA SWARAS &amp; THE PHYSICS OF HEALING SOUND</span>
+          The moment I heard a master vocalist perform a late-night raga in a small room in Varanasi,
+          I understood — not intellectually but somatically — why the Nada Chikitsa tradition
+          describes sound as medicine. Something in my autonomic nervous system reorganized in
+          response to those frequencies. Years of subsequent research have given me the vocabulary
+          to describe what happened — the raga entrained my brainwave activity, reduced cortisol
+          levels, and activated my parasympathetic nervous system through precise acoustic stimulation
+          of the vagus nerve. But no vocabulary fully captures the experience of being healed by
+          beauty. That, too, is data — the most important kind.
+        </p>
+        <p>
+          <span class="para-topic">ON THE MASTER CONSCIOUS PROTOCOL &amp; CIVILISATIONAL TRANSFORMATION</span>
+          Spandana is ultimately my attempt to give form to a conviction that has deepened over
+          decades of practice and inquiry: that the crisis of our civilization is a crisis of
+          consciousness, and that the ancient Indian sciences — grammar, movement, sound, and
+          the systematic cultivation of awareness — constitute the most sophisticated response
+          to that crisis that human intelligence has yet devised. The Master Conscious Protocol
+          is not a product. It is an invitation — to practitioners, scholars, artists, scientists,
+          and all those who sense that the deepest problems of our time require the deepest
+          resources of our tradition. We have those resources. The work is to remember them,
+          translate them, and live them — together.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     INQUIRY SECTION
+══════════════════════════════════ -->
+<section class="section-inquiry" id="inquiry">
+  <div class="inquiry-inner">
+    <div class="inquiry-top">
+      <div class="section-kicker">CONNECT WITH SPANDANA</div>
+      <h2 class="section-title">Submit an <span>Inquiry</span></h2>
+      <p class="inquiry-intro">
+        Whether you seek guidance, collaboration, deeper study, or wish to explore any of these
+        domains in practice — we welcome your correspondence with open hands and an open mind.
+      </p>
+      <div class="contact-line">
+        📧 <a href="mailto:smith123846@gmail.com">smith123846@gmail.com</a>
+        &nbsp;&nbsp;·&nbsp;&nbsp;
+        📞 <a href="tel:+919121379100">+91 91213 79100</a>
+      </div>
+    </div>
+
+    <!-- JotForm embed -->
+    <div class="jotform-wrap">
+      <iframe
+        src="https://form.jotform.com/261042208142039"
+        title="Spandana Inquiry Form"
+        allowtransparency="true"
+        allow="geolocation; microphone; camera"
+        scrolling="yes">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════
+     FOOTER
+══════════════════════════════════ -->
+<footer>
+  <div class="foot-brand">SPANDANA · AESTHETICS OF SOCIETY</div>
+  <div class="foot-links">
+    <a href="https://natyashastra.culturalmusings.com" target="_blank">Natyashastra</a>
+    <a href="https://bioresonancemusings.culturalmusings.com" target="_blank">Bioresonance</a>
+    <a href="https://nada-chikitsa.culturalmusings.com" target="_blank">Nada Chikitsa</a>
+    <a href="https://masterconsciousprotocol.culturalmusings.com" target="_blank">MCP</a>
+    <a href="#inquiry">Inquire</a>
+    <a href="#author">Author</a>
+  </div>
+  <div class="foot-contact">
+    <a href="mailto:smith123846@gmail.com">smith123846@gmail.com</a> ·
+    <a href="tel:+919121379100">+91 91213 79100</a> ·
+    © 2025 Spandana · culturalmusings.com
+  </div>
+</footer>
+
+<!-- ══════════════════════════════════
+     CHATBOT BUBBLE
+══════════════════════════════════ -->
+<div class="chatbot-bubble" id="chatbotBubble">
+  <div class="chatbot-tooltip" id="chatTooltip">
+    💬 Leave us a message — we will get back to you with your requirements shortly.
+  </div>
+  <button class="chatbot-btn" id="chatToggle" title="Chat with us">💬</button>
+</div>
+
+<div class="chatbot-panel" id="chatbotPanel">
+  <div class="chatbot-header">
+    <span>SPANDANA · CHAT WITH US</span>
+    <button class="chatbot-close" id="chatClose">✕</button>
+  </div>
+  <iframe
+    src="https://www.jotform.com/agent/019d8f3727af73cab8f1024b3df3ef1f84b6"
+    title="Spandana Chatbot"
+    scrolling="yes">
+  </iframe>
+</div>
+
+<!-- ══════════════════════════════════
+     SCRIPTS
+══════════════════════════════════ -->
+<script>
+  /* ── Dropdown: Topics menu ── */
+  const menuBtn = document.getElementById('menuBtn');
+  const dropdown = document.getElementById('dropdown');
+
+  /* ── Dropdown: Subdomains menu ── */
+  const subBtn = document.getElementById('subBtn');
+  const dropdownSub = document.getElementById('dropdownSub');
+
+  menuBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    menuBtn.classList.toggle('open');
+    dropdown.classList.toggle('open');
+    subBtn.classList.remove('open');
+    dropdownSub.classList.remove('open');
+  });
+
+  subBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    subBtn.classList.toggle('open');
+    dropdownSub.classList.toggle('open');
+    menuBtn.classList.remove('open');
+    dropdown.classList.remove('open');
+  });
+
+  document.addEventListener('click', () => {
+    menuBtn.classList.remove('open');
+    dropdown.classList.remove('open');
+    subBtn.classList.remove('open');
+    dropdownSub.classList.remove('open');
+  });
+
+  /* ── Chatbot bubble ── */
+  const chatToggle = document.getElementById('chatToggle');
+  const chatClose  = document.getElementById('chatClose');
+  const chatPanel  = document.getElementById('chatbotPanel');
+  const chatTip    = document.getElementById('chatTooltip');
+  const openChat   = document.getElementById('openChat');
+
+  function openChatbot() {
+    chatPanel.classList.add('open');
+    chatTip.style.display = 'none';
+  }
+  function closeChatbot() {
+    chatPanel.classList.remove('open');
+  }
+
+  chatToggle.addEventListener('click', () => {
+    chatPanel.classList.contains('open') ? closeChatbot() : openChatbot();
+  });
+  chatClose.addEventListener('click', closeChatbot);
+  if (openChat) openChat.addEventListener('click', (e) => { e.preventDefault(); openChatbot(); });
+
+  /* Hide tooltip after 6s */
+  setTimeout(() => { chatTip.style.display = 'none'; }, 6000);
+</script>
+</body>
+<style>
+  /* Bumps the base font size across the WHOLE site — most of your existing
+     sizes use rem units, so this scales everything proportionally.
+     Move this single line into your main <head> <style> block if preferred. */
+  html { font-size: 18px; }
+
+  #fi-section {
+    max-width: 1150px;
+    margin: 0 auto;
+    padding: 4rem 2rem 5rem;
+  }
+  #fi-section .section-title { margin-bottom: 1rem; }
+  .fi-intro {
+    font-size: 0.94rem;
+    color: #908070;
+    max-width: 820px;
+    margin-bottom: 2.4rem;
+    line-height: 1.85;
+  }
+  .fi-tabs {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-bottom: 2.2rem;
+    border-bottom: 1px solid #2a2a2a;
+    padding-bottom: 1.2rem;
+  }
+  .fi-tab-btn {
+    padding: 0.5rem 1.05rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.03em;
+    border-radius: 3px;
+    border: 1px solid #3a3020;
+    color: #a09070;
+    background: transparent;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s ease;
+  }
+  .fi-tab-btn:hover { background: #c9a96e22; color: #c9a96e; }
+  .fi-tab-btn.fi-active { background: #c9a96e; color: #0f0f0f; border-color: #c9a96e; }
+
+  .fi-panel { display: none; animation: fiFadeIn 0.25s ease; }
+  .fi-panel.fi-active { display: block; }
+  @keyframes fiFadeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: translateY(0); } }
+
+  .fi-panel-wrap {
+    background: #141414;
+    border: 1px solid #2a2a2a;
+    border-radius: 8px;
+    padding: 2.4rem 2.6rem;
+  }
+  .fi-domain-label {
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #c9a96e;
+    margin-bottom: 0.6rem;
+  }
+  .fi-panel-title {
+    font-size: 1.4rem;
+    color: #f0e8d8;
+    margin-bottom: 0.4rem;
+    line-height: 1.3;
+  }
+  .fi-panel-subtitle {
+    font-size: 0.86rem;
+    color: #a09070;
+    font-style: italic;
+    margin-bottom: 1.6rem;
+  }
+
+  /* Challenge callout */
+  .fi-challenge-box {
+    background: #1a1410;
+    border-left: 3px solid #8a6045;
+    border-radius: 4px;
+    padding: 1.2rem 1.5rem;
+    margin-bottom: 1.6rem;
+  }
+  .fi-challenge-label {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #c08858;
+    margin-bottom: 0.5rem;
+  }
+  .fi-challenge-text {
+    font-size: 0.87rem;
+    color: #c0b0a0;
+    line-height: 1.75;
+  }
+
+  /* Bridge / core concept */
+  .fi-bridge-label {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #c9a96e;
+    margin-bottom: 0.5rem;
+  }
+  .fi-panel-desc {
+    font-size: 0.89rem;
+    color: #908070;
+    line-height: 1.85;
+    margin-bottom: 1rem;
+  }
+  .fi-panel-desc + .fi-panel-desc { margin-top: -0.4rem; }
+
+  .fi-two-col {
+    display: grid;
+    grid-template-columns: 1.15fr 1fr;
+    gap: 2.6rem;
+    margin-top: 1.8rem;
+  }
+
+  .fi-panel-tags { display: flex; flex-wrap: wrap; gap: 0.35rem; margin-top: 1.2rem; }
+  .fi-panel-tags span {
+    font-size: 0.65rem;
+    background: #1e1a14;
+    border: 1px solid #3a3020;
+    color: #a09070;
+    padding: 0.18rem 0.6rem;
+    border-radius: 2px;
+  }
+
+  .fi-impact-title {
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: #c9a96e;
+    margin-bottom: 0.9rem;
+  }
+  .fi-impact-list { list-style: none; }
+  .fi-impact-list li {
+    font-size: 0.84rem;
+    color: #706050;
+    padding: 0.55rem 0;
+    border-bottom: 1px solid #1e1e1e;
+    line-height: 1.65;
+  }
+  .fi-impact-list li:last-child { border-bottom: none; }
+  .fi-impact-list li::before { content: '→ '; color: #c9a96e; }
+
+  .fi-deliverables {
+    margin-top: 1.4rem;
+    padding-top: 1.2rem;
+    border-top: 1px solid #2a2a2a;
+  }
+  .fi-deliverables-label {
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: #706050;
+    margin-bottom: 0.6rem;
+  }
+  .fi-deliverables-text {
+    font-size: 0.82rem;
+    color: #706050;
+    line-height: 1.7;
+  }
+
+  @media (max-width: 760px) {
+    .fi-two-col { grid-template-columns: 1fr; gap: 1.6rem; }
+    .fi-panel-wrap { padding: 1.8rem 1.6rem; }
+  }
+</style>
+
+<section id="fi-section">
+  <div class="section-title">Strategic Value for Organizations</div>
+  <p class="fi-intro">
+    Most institutions today are not short on data, technology, or capital — they are short on
+    coherent frameworks for meaning, depth, and differentiation. The ten directions below show
+    where 25+ years of research across Vedic knowledge systems, performing arts science, sound
+    healing, and Sanskrit computational linguistics directly addresses a present-day organizational
+    gap, not as cultural decoration, but as applied, structured, decision-grade knowledge.
+  </p>
+
+  <div class="fi-tabs" id="fi-tabs">
+    <button class="fi-tab-btn fi-active" data-fi="1">AI &amp; Sanskrit NLP</button>
+    <button class="fi-tab-btn" data-fi="2">Cultural Heritage &amp; EdTech</button>
+    <button class="fi-tab-btn" data-fi="3">Wellness &amp; Sound Therapy</button>
+    <button class="fi-tab-btn" data-fi="4">Media &amp; Documentary</button>
+    <button class="fi-tab-btn" data-fi="5">Publishing &amp; Editorial</button>
+    <button class="fi-tab-btn" data-fi="6">Corporate Training &amp; Culture</button>
+    <button class="fi-tab-btn" data-fi="7">Government &amp; Institutions</button>
+    <button class="fi-tab-btn" data-fi="8">Mental Health &amp; Cognitive Science</button>
+    <button class="fi-tab-btn" data-fi="9">Design, Geometry &amp; Architecture</button>
+    <button class="fi-tab-btn" data-fi="10">Brand, CSR &amp; Community</button>
+  </div>
+
+  <!-- PANEL 1 -->
+  <div class="fi-panel fi-active" id="fi-panel-1">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Artificial Intelligence · Computational Linguistics</div>
+      <div class="fi-panel-title">AI &amp; Sanskrit NLP — Knowledge Systems Engineering</div>
+      <div class="fi-panel-subtitle">Pāṇini's Aṣṭādhyāyī as a 2,500-year-old generative grammar engine.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Commercial NLP and LLM ecosystems remain structurally weak for Sanskrit and most Indic languages — datasets are sparse, morphology is under-modeled, and most "Indic AI" efforts bolt translation layers onto English-first architectures rather than building from the language's own grammatical logic. Organizations entering this space repeatedly rebuild the same brittle foundations because no one is starting from the formal source.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">Pāṇini's Aṣṭādhyāyī is the world's first fully formal, rule-based generative grammar — nearly 4,000 sutras operating with the precision of a compiler's instruction set, complete with meta-rules for rule-conflict resolution that anticipate modern parser design by two millennia. The Vedic AI Codex maps ten such structural parallels (Pāṇini's rule-ordering to logic gates, Piṅgala's binary meter system to bit encoding, Japa repetition cycles to LSTM-style memory loops) into working equations and interactive proofs — giving an AI team a grammatically-grounded starting architecture instead of a translation-layer workaround.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Differentiated IP in an underserved, high-barrier-to-entry market segment</li>
+            <li>Research-partnership pathway with linguistics and AI labs working on Indic languages</li>
+            <li>Reduces architecture risk by grounding design in a tested, rule-complete formal system</li>
+            <li>Positions the organization as a category leader in grammatically-rigorous Indic AI, not generic "AI + culture" branding</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>LLM providers building regional-language model variants</li>
+            <li>EdTech and translation platforms serving Sanskrit/Indic scholarship</li>
+            <li>Government digital-heritage and language-preservation initiatives</li>
+            <li>Academic NLP labs seeking a non-Western grammatical reference model</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Sanskrit NLP</span><span>Pāṇini Grammar Engine</span><span>Low-Resource Language AI</span><span>Vedic AI Codex — 10 Equations</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Research consultancy, technical-advisory engagement, co-authored whitepaper, or structured handoff of the Vedic AI Codex framework for in-house model development.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 2 -->
+  <div class="fi-panel" id="fi-panel-2">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Education Technology · Digital Humanities</div>
+      <div class="fi-panel-title">Cultural Heritage &amp; EdTech Platforms</div>
+      <div class="fi-panel-subtitle">A 26-domain research architecture as a ready curriculum spine.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">EdTech and heritage platforms targeting Indian classical knowledge face a recurring bottleneck: authentic, well-researched, citation-backed content is slow and expensive to produce in-house, and most available material online is either shallow devotional content or dense academic prose inaccessible to a general learner. Platforms either under-invest in depth or over-invest in production time, rarely both well.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">26 interconnected research subdomains — spanning Natya Shastra, Sacred Geometry, Vedic Mathematics, Consciousness Studies, and more — already exist as a structured, cross-referenced knowledge base with 50+ scholarly sources behind it. This is functionally a pre-built curriculum spine: modular enough to be sequenced into courses, certifications, micro-learning content, or a licensed content library, with the depth of academic work already translated into accessible registers.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Cuts content-development time from years to months by starting from existing research</li>
+            <li>Opens B2B licensing revenue with universities, museums, and cultural foundations</li>
+            <li>Strengthens academic credibility and reduces accuracy/reputational risk</li>
+            <li>Provides a content roadmap already organized by subject-matter cluster</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Online learning platforms building Indian-studies or arts verticals</li>
+            <li>Museum and heritage-site digital interpretation programs</li>
+            <li>University extension and continuing-education programs</li>
+            <li>Children's and youth cultural-education initiatives</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Curriculum Design</span><span>Digital Humanities</span><span>Course Licensing</span><span>26-Domain Knowledge Base</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Content licensing, curriculum-design consultancy, course co-development, or subject-matter-expert review for existing platforms.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 3 -->
+  <div class="fi-panel" id="fi-panel-3">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Health-Tech · Sound Healing · Bio-Acoustics</div>
+      <div class="fi-panel-title">Wellness &amp; Clinical Sound Therapy</div>
+      <div class="fi-panel-subtitle">Mapping the seven Swaras to anatomical resonance zones.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">The wellness and sound-therapy market has grown faster than its evidence base. Most "sound healing" products are built on marketing language rather than a coherent physiological model, which limits credibility with clinicians, regulators, and serious consumers — and leaves real therapeutic potential unexplored because no one has formalized the mechanism.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">The Raga Pharmacopoeia and Nāda Brahman Bio-Acoustic Codex map the seven Swaras of Carnatic music to specific anatomical resonance zones, with physics-grounded equations for cellular membrane vibration and neural entrainment. Rather than treating sound healing as folklore, this work treats it as a testable physiological hypothesis — giving a wellness or health-tech organization a structured starting framework instead of having to build a clinical rationale from nothing.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Provides a testable hypothesis base for clinical-validation research partnerships</li>
+            <li>Supports new product lines in wellness, meditation, or therapeutic-audio tech with real mechanism behind them</li>
+            <li>Adds traditional-knowledge depth that strengthens regulatory and consumer trust</li>
+            <li>Opens collaboration pathways with neuroscience and music-therapy laboratories</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Wellness-tech and meditation-app companies building audio products</li>
+            <li>Music-therapy and integrative-medicine clinics</li>
+            <li>Hospitality and retreat brands developing sound-based offerings</li>
+            <li>Academic medical centers researching non-pharmacological interventions</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Raga Pharmacopoeia</span><span>Bio-Acoustics</span><span>Clinical Sound Therapy</span><span>Product R&amp;D</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Research-framework licensing, clinical-study collaboration, or product-development advisory for sound-based wellness offerings.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 4 -->
+  <div class="fi-panel" id="fi-panel-4">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Media Production · Documentary · Content Strategy</div>
+      <div class="fi-panel-title">Media, Documentary &amp; Content Strategy</div>
+      <div class="fi-panel-subtitle">25+ years of converting dense scholarship into watchable, readable content.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Audience appetite for "ancient wisdom meets modern science" content has grown sharply, but most production teams lack in-house subject-matter depth — leading to either superficial, fact-light content that erodes trust, or accurate-but-unwatchable academic-style documentaries that fail to find an audience. Research risk and turnaround time are the two biggest blockers to greenlighting this kind of programming.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">The Aesthetics of Society channel and blog represent a proven, repeatable model for converting complex Vedic and performing-arts scholarship into accessible video and editorial formats — already organized across four content genres (classical dance, Vedic science, psychology, Sanskrit and sound). For a media company, this isn't a concept to develop from scratch; it's a vetted format with a ready slate of research-backed episode concepts spanning 26 subject domains.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Reduces research risk and turnaround time for heritage and culture documentaries</li>
+            <li>Provides a proven format for converting scholarship into watchable content</li>
+            <li>Strengthens programming slates in a growing, underserved content niche</li>
+            <li>Supplies a ready slate of 26+ research-backed episode and series concepts</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Streaming platforms and broadcasters building culture/documentary verticals</li>
+            <li>Independent production houses developing heritage series</li>
+            <li>Brand-content and editorial teams in the wellness/culture space</li>
+            <li>Podcast and long-form audio networks</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Documentary Research</span><span>Content Strategy</span><span>Editorial Production</span><span>Scriptwriting Support</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">On-camera or research-credited subject-matter expert, episode/series research lead, or fact-verification consultant.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 5 -->
+  <div class="fi-panel" id="fi-panel-5">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Publishing · Editorial Services · Translation</div>
+      <div class="fi-panel-title">Publishing &amp; Editorial Partnerships</div>
+      <div class="fi-panel-subtitle">A live manuscript pipeline plus verified Sanskrit-translation capability.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Publishers in the performing-arts and consciousness-studies categories face a thin pool of authors who can write with both scholarly rigor and reader accessibility — and an even thinner pool of reliable Sanskrit-to-English translators for primary-source work. Acquisition pipelines stall waiting for manuscripts that meet both bars at once.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">Two books are currently in active writing phase — scholarly treatments of Indian classical dance as a psychological and somatic healing system — alongside ongoing primary-source Sanskrit translation work. For a publishing house or academic press, this represents both a near-term acquisition opportunity with reduced manuscript risk, and a standing editorial resource for translation and fact-checking on related titles.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Two manuscripts already in progress reduce acquisition and development risk</li>
+            <li>Adds verified Sanskrit-translation capability to an editorial roster</li>
+            <li>Supports catalogue expansion into performing-arts and consciousness-studies niches</li>
+            <li>Enables co-authorship or ghost-writing arrangements for institutional clients</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Academic and trade publishers in South Asian studies or performing arts</li>
+            <li>Institutional clients commissioning monographs or white papers</li>
+            <li>Journals requiring Sanskrit primary-source translation and review</li>
+            <li>Self-publishing platforms seeking credentialed niche authors</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Manuscript Pipeline</span><span>Sanskrit Translation</span><span>Academic Publishing</span><span>Ghost Writing</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Manuscript acquisition discussion, translation-services contract, or ghost-writing/co-authorship agreement.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 6 -->
+  <div class="fi-panel" id="fi-panel-6">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Organizational Development · Leadership · L&amp;D</div>
+      <div class="fi-panel-title">Corporate Training &amp; Organizational Culture</div>
+      <div class="fi-panel-subtitle">Rasa theory and the 108 Karanas as named, structured leadership frameworks.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Corporate L&amp;D budgets are saturated with generic "mindfulness" and soft-skills programs that employees increasingly tune out, precisely because they lack a coherent underlying framework. Organizations want differentiated emotional-intelligence and culture-building content but default to the same handful of Western behavioral models because nothing else is presented in a usable, structured form.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">Rasa theory offers a nine-category model of emotional experience and audience response, originally engineered for performing arts but directly transferable to communication, leadership presence, and conflict navigation. Kośa mapping provides a five-layer model of human functioning (physical, energetic, mental, intuitive, blissful) usable as a diagnostic for team wellbeing. The 108 Karanas — a finite-state system of disciplined practice — translate into a structured model for skill mastery and habit formation. Together these form a named, citable framework distinct from generic corporate-wellness content.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Differentiates an L&amp;D offering from generic mindfulness/wellness programs</li>
+            <li>Provides a structured, named framework rather than vague "ancient wisdom" branding</li>
+            <li>Applicable to leadership development, conflict resolution, and team-cohesion training</li>
+            <li>Exportable as a licensable corporate workshop or certification track</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Corporate L&amp;D and HR teams designing leadership programs</li>
+            <li>Executive coaching practices seeking a differentiated framework</li>
+            <li>Organizational psychology consultancies</li>
+            <li>Conference and keynote programming on workplace culture</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Rasa-Based EI Training</span><span>Leadership Frameworks</span><span>Culture Design</span><span>Differentiated L&amp;D</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Workshop design and delivery, framework licensing for in-house trainers, or keynote/speaking engagement.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 7 -->
+  <div class="fi-panel" id="fi-panel-7">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Cultural Diplomacy · Government · Heritage Bodies</div>
+      <div class="fi-panel-title">Government &amp; Cultural Institution Partnerships</div>
+      <div class="fi-panel-subtitle">A citation-backed research portal as ready soft-power infrastructure.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Cultural ministries, tourism boards, and heritage NGOs are frequently asked to produce credible, citable content for exhibitions, grant applications, and diplomacy initiatives on short timelines — and frequently fall back on generic, uncredentialed material because commissioning original scholarship is slow and expensive, weakening the institution's standing in funding and partnership negotiations.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">A 26-domain, citation-backed research portal already functions as informal soft-power infrastructure for Indian classical knowledge systems, with 50+ scholarly sources behind it. This is directly usable as exhibition content, cultural-diplomacy material, grant-application backing, or a foundation for a state-backed digital heritage archive — without the lead time of commissioning research from scratch.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Supplies ready, credentialed content for cultural exhibitions and digital archives</li>
+            <li>Supports tourism and soft-power programming around classical arts</li>
+            <li>Strengthens grant proposals and institutional bids with a recognized research voice</li>
+            <li>Reduces commissioning timelines for heritage-preservation initiatives</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Ministries of culture and tourism boards</li>
+            <li>Museums and heritage-site interpretation programs</li>
+            <li>Cultural-exchange and diplomacy initiatives</li>
+            <li>Heritage-preservation NGOs and grant-funded archive projects</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Cultural Diplomacy</span><span>Heritage Archives</span><span>Museum Content</span><span>Tourism &amp; Soft Power</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Research-content licensing, exhibition advisory, grant-proposal collaboration, or commissioned archive-building project.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 8 — NEW -->
+  <div class="fi-panel" id="fi-panel-8">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Mental Health · Cognitive Science · Workplace Wellbeing</div>
+      <div class="fi-panel-title">Mental Health &amp; Cognitive Science Frameworks</div>
+      <div class="fi-panel-subtitle">Kośa mapping and Turīya as structured models for attention and self-regulation.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Burnout, attention fragmentation, and workplace mental-health strain are now board-level concerns, but most organizational responses are reactive (EAPs, occasional wellness days) rather than built on a structural model of human attention and self-regulation. Clinical and neuroscience research on the Default Mode Network increasingly validates contemplative frameworks, but few organizations have a bridge between the science and a deployable internal program.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">Consciousness-studies research here maps the classical Kośa (five-sheath) model of human functioning and the Turīya state directly against contemporary findings on the Default Mode Network and attention-regulation neuroscience — producing a "liberation cartography" that is structurally precise, not vaguely spiritual. This gives an organization a defensible, research-literate basis for designing attention-management and resilience programs, rather than importing an off-the-shelf mindfulness app with no underlying model.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Moves workplace-wellbeing strategy from reactive to model-driven and preventive</li>
+            <li>Bridges contemplative tradition and neuroscience with citable rigor for HR and clinical stakeholders</li>
+            <li>Supports product design for attention/focus apps grounded in a structural model, not slogans</li>
+            <li>Differentiates employee-wellbeing programming with depth that holds up to scrutiny</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>HR and occupational-health teams designing resilience programs</li>
+            <li>Mental-health and meditation-app product teams</li>
+            <li>Cognitive-science research groups studying contemplative states</li>
+            <li>Executive coaching and high-performance consultancies</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Kośa Mapping</span><span>Default Mode Network</span><span>Attention Science</span><span>Workplace Resilience</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Framework-design consultancy, internal whitepaper, or advisory input for product and HR-program development.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 9 — NEW -->
+  <div class="fi-panel" id="fi-panel-9">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Design · Sacred Geometry · Architecture · Spatial Systems</div>
+      <div class="fi-panel-title">Design, Geometry &amp; Architecture Innovation</div>
+      <div class="fi-panel-subtitle">Vedic mathematics and sacred-geometry principles as a design-systems source.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Design and architecture firms increasingly look to non-Western and traditional systems for differentiated spatial and proportional logic — but most engagement with "sacred geometry" in commercial design remains decorative motif-borrowing rather than structural principle, missing the underlying mathematics that made these systems functional in the first place.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">Research into Vedic mathematics and sacred geometry — including Piṅgala's binary numerical systems and the proportional logic embedded in classical temple and performance-space design — surfaces the structural principles behind these traditions, not just their visual motifs. For a design or architecture practice, this offers an actual generative system (proportion, rhythm, spatial sequencing) that can inform layout, acoustic design, and branding systems with intellectual depth behind the aesthetic.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Moves "sacred geometry" from decorative trend to a genuine generative design system</li>
+            <li>Differentiates branding and spatial-design work with substantive cultural-mathematical grounding</li>
+            <li>Informs acoustic and performance-space design using classical proportional principles</li>
+            <li>Supports storytelling and provenance narratives for design-led products and spaces</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Architecture firms designing cultural, performance, or wellness spaces</li>
+            <li>Branding and graphic-design studios seeking differentiated visual systems</li>
+            <li>Product designers working with proportion-based aesthetics</li>
+            <li>Urban and landscape planners referencing traditional spatial logic</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Sacred Geometry</span><span>Vedic Mathematics</span><span>Proportional Systems</span><span>Acoustic Design</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Design-research consultancy, principle documentation for in-house design teams, or collaborative concept development.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PANEL 10 — NEW -->
+  <div class="fi-panel" id="fi-panel-10">
+    <div class="fi-panel-wrap">
+      <div class="fi-domain-label">Brand Strategy · CSR · Community Engagement</div>
+      <div class="fi-panel-title">Brand Storytelling, CSR &amp; Community Engagement</div>
+      <div class="fi-panel-subtitle">Bhakti traditions and testimony archives as authentic community-narrative material.</div>
+
+      <div class="fi-challenge-box">
+        <div class="fi-challenge-label">The Present-Day Gap</div>
+        <div class="fi-challenge-text">Brands and CSR programs operating in or around Indian cultural contexts frequently struggle with authenticity — community-facing campaigns built on surface-level cultural references draw criticism for tokenism, while genuinely substantive cultural engagement is hard to source without a real research relationship to the communities and traditions involved.</div>
+      </div>
+
+      <div class="fi-bridge-label">How This Bridges It</div>
+      <p class="fi-panel-desc">Research into Bhakti and Agamic arts, temple traditions, and a growing testimony archive of practitioner voices and community accounts provides a grounded, non-extractive basis for brand storytelling and CSR programming connected to Indian classical culture. This is first-person-adjacent, citation-backed material — not a marketing team's outside-in interpretation of "tradition" — giving a brand or foundation genuine substance for cultural-engagement narratives.</p>
+
+      <div class="fi-two-col">
+        <div>
+          <div class="fi-impact-title">Decision-Making Impact</div>
+          <ul class="fi-impact-list">
+            <li>Reduces reputational risk in culturally-sensitive brand and CSR campaigns</li>
+            <li>Provides authentic, sourced narrative material instead of surface-level cultural references</li>
+            <li>Supports community-engagement programs with real practitioner testimony behind them</li>
+            <li>Strengthens foundation and CSR grant narratives with credentialed cultural research</li>
+          </ul>
+        </div>
+        <div>
+          <div class="fi-impact-title">Where This Applies</div>
+          <ul class="fi-impact-list">
+            <li>Brand and marketing teams operating in heritage-adjacent categories</li>
+            <li>Corporate foundations and CSR programs supporting arts and culture</li>
+            <li>NGOs documenting and preserving devotional and community traditions</li>
+            <li>Hospitality and lifestyle brands building culturally-rooted storytelling</li>
+          </ul>
+        </div>
+      </div>
+      <div class="fi-panel-tags"><span>Bhakti &amp; Agamic Arts</span><span>Testimony Archive</span><span>CSR Storytelling</span><span>Community Engagement</span></div>
+      <div class="fi-deliverables">
+        <div class="fi-deliverables-label">Available As</div>
+        <div class="fi-deliverables-text">Narrative-research consultancy, CSR-program content development, or community-testimony documentation project.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  (function () {
+    var btns = document.querySelectorAll('.fi-tab-btn');
+    btns.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        var n = btn.getAttribute('data-fi');
+        document.querySelectorAll('.fi-tab-btn').forEach(function (b) { b.classList.remove('fi-active'); });
+        document.querySelectorAll('.fi-panel').forEach(function (p) { p.classList.remove('fi-active'); });
+        btn.classList.add('fi-active');
+        document.getElementById('fi-panel-' + n).classList.add('fi-active');
+      });
+    });
+  })();
+</script>
+
+</html>
